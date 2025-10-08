@@ -8,7 +8,7 @@ ledPins = [2, 3, 4, 14, 15, 18, 17, 27, 22, 23]    # adjust to your wiring
 switch = 25                                        # button GPIO
 baseFreq = 500                                     # 500 Hz base PWM
 f = 0.2                                            # LED brightness wave frequency
-phi = math.pi / 11                                 # phase difference between LEDs
+step = math.pi / 11                                 # phase difference between LEDs
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -36,20 +36,22 @@ try:
     while True:
         t = time.time() - t0
         
-        # --- Check for button press (edge detection manually) ---
+        # Checking switch state
         current_state = GPIO.input(switch)
         if current_state == GPIO.HIGH and last_button_state == GPIO.LOW:
             direction *= -1
-            print(f"Direction changed! Now: {'Forward' if direction == 1 else 'Reverse'}")
-            # small debounce delay
+            print(f"Direction changed! Now {'forward' if direction == 1 else 'reverse'}")
         last_button_state = current_state
 
-        # --- Update LED brightness ---
-        for i in range(len(pwms)):
-            phi = direction * i * phi
-            brightness = (math.sin(2 * math.pi * f * t - phi)) ** 2
-            duty_cycle = brightness * 100
-            pwms[i].ChangeDutyCycle(duty_cycle)
+        # LED direction
+        led_indices = range(len(ledPins)) if direction == 1 else reversed(range(len(ledPins)))
+
+        # Update LED
+        for i, pwm in enumerate(pwms):
+            phi = direction * i * step
+            brightness = math.sin(2 * math.pi * f * t - phi) ** 2
+            duty = brightness * 100  # convert 0–1 brightness to 0–100% duty cycle
+            pwm.ChangeDutyCycle(duty)
 
 except KeyboardInterrupt:
     print("Exiting...")
