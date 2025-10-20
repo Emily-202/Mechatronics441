@@ -57,7 +57,7 @@ try:
             bug.timestep = 0.1      # normal speed
 
         if prev_s3 != s3_state and s3_state:
-            print(f"Speed: {'3x' if bug.timestep == 0.033 else '1x'}")
+            print(f"Speed: 3x")
         prev_s3 = s3_state
         
 
