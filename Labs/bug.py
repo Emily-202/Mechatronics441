@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 from bugClass import Bug
 
-# Setup GPIO mode FIRST
+# Setup GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
