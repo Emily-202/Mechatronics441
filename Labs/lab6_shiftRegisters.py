@@ -29,3 +29,4 @@ try:
 except KeyboardInterrupt:
     print("\nExiting...")
     s.shiftByte(0b00000000)         # turn all LEDs off
+    GPIO.cleanup()
