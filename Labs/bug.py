@@ -21,6 +21,7 @@ bug = Bug()
 
 # Track previous states
 prev_s2 = GPIO.input(s2)
+prev_s3 = GPIO.input(s3)
 bug_active = False
 
 try:
@@ -55,7 +56,11 @@ try:
             print("3x Speed")
         else:
             bug.timestep = 0.1      # normal speed
-            print("1x Speed")
+
+        if prev_s3 != s3_state and s3_state:
+            print(f"Speed: {'3x' if bug.timestep == 0.033 else '1x'}")
+        prev_s3 = s3_state
+        
 
         # If bug is active, update its position and display
         if bug_active:
