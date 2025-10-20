@@ -20,6 +20,7 @@ GPIO.setup(s3, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 bug = Bug()
 
 # Track previous states
+originalSpeed = bug.timestep
 prev_s2 = GPIO.input(s2)
 prev_s3 = GPIO.input(s3)
 bug_active = False
@@ -33,18 +34,18 @@ try:
 
         # Bug on/off
         if s1_state and not bug_active:
-            # Start the bug animation
+            # Start moving
             bug._running = True
             bug_active = True
             print("Bug started")
         elif not s1_state and bug_active:
-            # Stop the bug animation
+            # Stop moving and turn off display
             bug._running = False
             bug._Bug__shifter.shiftByte(0)  # Turn off LEDs
             bug_active = False
             print("Bug stopped")
 
-        # Wrapping changes - toggle on button press
+        # Wrapping changes (Toggle)
         if s2_state != prev_s2 and s2_state:
             bug.isWrapOn = not bug.isWrapOn
             print(f"Wrap: {'ON' if bug.isWrapOn else 'OFF'}")
@@ -52,21 +53,21 @@ try:
 
         # Speed changes
         if s3_state:
-            bug.timestep = 0.033    # speed up 3x
+            bug.timestep = originalSpeed / 3  # speed up 3x
         else:
-            bug.timestep = 0.1      # normal speed
+            bug.timestep = originalSpeed      # normal speed
 
         if prev_s3 != s3_state and s3_state:
             print(f"Speed: 3x")
+        elif prev_s3 != s3_state and not s3_state:
+            print(f"Speed: 1x")
         prev_s3 = s3_state
-        
 
         # If bug is active, update its position and display
         if bug_active:
             bug._update_position()
             bug._Bug__shifter.shiftByte(1 << bug.x)
 
-        time.sleep(0.5)             # delay to make light movements more distinguishable
 
 
 except KeyboardInterrupt:
