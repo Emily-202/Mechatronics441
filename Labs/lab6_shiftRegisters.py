@@ -12,7 +12,6 @@ class Bug:
         self._running = False
 
     def _update_position(self):
-
         step = random.choice([-1, 1])
         new_x = self.x + step
 
@@ -45,5 +44,3 @@ class Bug:
         # Stop moving the LED and turn off the display
         self._running = False
         self.__shifter.shiftByte(0)  # turn off all LEDs
-        time.sleep(0.05)
-        GPIO.cleanup()

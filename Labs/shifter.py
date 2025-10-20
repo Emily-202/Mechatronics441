@@ -1,8 +1,6 @@
 import RPi.GPIO as GPIO
 import time
 
-GPIO.setmode(GPIO.BCM)
-
 class Shifter:
     # Assign instance attributes
     def __init__(self, serialPin, latchPin, clockPin):
@@ -36,8 +34,6 @@ try:
     """
     while True:
         pass
-except KeyboardInterrupt:
-    GPIO.cleanup()
 except Exception as e:
     print("Error:", e)
-    GPIO.cleanup()
+    
