@@ -1,9 +1,10 @@
 import RPi.GPIO as GPIO
 import time
-import threading
-from lab6_shiftRegisters import Bug  # import the Bug class we just created
+from lab6_shiftRegisters import Bug
 
+# Setup GPIO mode FIRST
 GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
 # GPIO input pins for switches
 s1 = 17  # switch 1: turn bug on/off
@@ -15,11 +16,12 @@ GPIO.setup(s1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(s2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(s3, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-# Instantiate Bug (default parameters)
+# Instantiate Bug
 bug = Bug()
 
-# Track previous state of S2 to detect changes
+# Track previous states
 prev_s2 = GPIO.input(s2)
+bug_active = False
 
 try:
     while True:
@@ -29,28 +31,41 @@ try:
         s3_state = GPIO.input(s3)
 
         # Bug on/off
-        if s1_state:
-            # Move the bug when on
-            bug.start()       # update display
-        else:
-            # Turn off display when off
-            bug.stop()
+        if s1_state and not bug_active:
+            # Start the bug animation
+            bug._running = True
+            bug_active = True
+            print("Bug started")
+        elif not s1_state and bug_active:
+            # Stop the bug animation
+            bug._running = False
+            bug.__shifter.shiftByte(0)  # Turn off LEDs
+            bug_active = False
+            print("Bug stopped")
 
-        # Wrapping changes
-        if s2_state != prev_s2:
+        # Wrapping changes - toggle on button press
+        if s2_state != prev_s2 and s2_state:
             bug.isWrapOn = not bug.isWrapOn
-            prev_s2 = s2_state              # update previous state
+            print(f"Wrap: {'ON' if bug.isWrapOn else 'OFF'}")
+        prev_s2 = s2_state
 
         # Speed changes
         if s3_state:
-            delay = bug.timestep / 3        # speed up 3x
+            bug.timestep = 0.033  # speed up 3x
         else:
-            delay = bug.timestep
+            bug.timestep = 0.1    # normal speed
 
-        # Wait before next loop iteration
-        time.sleep(delay)
+        # If bug is active, update its position and display
+        if bug_active:
+            bug._update_position()
+            bug.__shifter.shiftByte(1 << bug.x)
+
 
 except KeyboardInterrupt:
     print("\nExiting...")
-    bug.stop()
+finally:
+    # Clean up
+    bug._running = False
+    bug.__shifter.shiftByte(0)  # Turn off LEDs
     GPIO.cleanup()
+    print("GPIO cleaned up")
