@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 import time
-from lab6_shiftRegisters import Bug
+from bugClass import Bug
 
 # Setup GPIO mode FIRST
 GPIO.setmode(GPIO.BCM)
