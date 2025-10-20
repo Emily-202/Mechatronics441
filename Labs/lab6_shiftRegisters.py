@@ -28,5 +28,6 @@ try:
 
 except KeyboardInterrupt:
     print("\nExiting...")
-    s.shiftByte(0b00000000)         # turn all LEDs off
+    s.shiftByte(0)                 # shift out all zeros
+    time.sleep(0.05)               # brief delay so latch pulse completes
     GPIO.cleanup()
