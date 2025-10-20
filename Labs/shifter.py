@@ -16,7 +16,7 @@ class Shifter:
         GPIO.setup(clockPin, GPIO.OUT, initial=0)
 
     # Ping/Toggle pin high then low
-    def ping(p):
+    def ping(self, p):
         GPIO.output(p, 1)          # ping the latch pin to send register to output
         time.sleep(0)
         GPIO.output(p, 0)
