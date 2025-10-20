@@ -31,7 +31,7 @@ class Shifter:
 
 try:
     s = Shifter(2, 3, 4)   # serial=2, clock=3, latch=4
-    s.shiftByte(0b01100110)   # test pattern
+    s.shiftByte(0b00000110)   # test pattern
     while True:
         pass
 except KeyboardInterrupt:
