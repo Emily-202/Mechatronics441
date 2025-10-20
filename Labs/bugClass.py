@@ -8,7 +8,7 @@ class Bug:
         self.timestep = timestep            # time between moves
         self.x = x                          # current LED position (0-7)
         self.isWrapOn = isWrapOn            # wrap around edges if True
-        self.__shifter = Shifter(2, 3, 4)   # private Shifter instance
+        self.__shifter = Shifter(2, 3, 4)   # Shifter pins (serial, latch, clock)
         self._running = False
 
     def _update_position(self):
