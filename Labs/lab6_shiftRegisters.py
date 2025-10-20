@@ -14,7 +14,7 @@ def ledPos(p):
 try:
     while True:
         ledPos(position)
-        time.Sleep(timeStep)
+        time.sleep(timeStep)
 
         step = random.choice([-1, 1])
         new_p = position + step
