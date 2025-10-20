@@ -39,7 +39,7 @@ try:
         elif not s1_state and bug_active:
             # Stop the bug animation
             bug._running = False
-            bug.__shifter.shiftByte(0)  # Turn off LEDs
+            bug._Bug__shifter.shiftByte(0)  # Turn off LEDs
             bug_active = False
             print("Bug stopped")
 
@@ -58,7 +58,7 @@ try:
         # If bug is active, update its position and display
         if bug_active:
             bug._update_position()
-            bug.__shifter.shiftByte(1 << bug.x)
+            bug._Bug__shifter.shiftByte(1 << bug.x)
 
 
 except KeyboardInterrupt:
@@ -66,6 +66,6 @@ except KeyboardInterrupt:
 finally:
     # Clean up
     bug._running = False
-    bug.__shifter.shiftByte(0)  # Turn off LEDs
+    bug._Bug__shifter.shiftByte(0)  # Turn off LEDs
     GPIO.cleanup()
     print("GPIO cleaned up")
