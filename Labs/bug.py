@@ -62,7 +62,7 @@ try:
             bug._update_position()
             bug._Bug__shifter.shiftByte(1 << bug.x)
 
-        time.sleep(0.1)             # delay to make light movements more distinguishable
+        time.sleep(0.001)             # delay to make light movements more distinguishable
 
 
 except KeyboardInterrupt:
