@@ -25,8 +25,8 @@ class Shifter:
     def shiftByte(self, b):
         for i in range(8):
             GPIO.output(self.serial, b & (1<<i))
-            self.__ping(self.clock)        # ping the clock pin to shift register data
-        self.__ping(self.latch)            # ping the latch pin to send register to output
+            self.ping(self.clock)        # ping the clock pin to shift register data
+        self.ping(self.latch)            # ping the latch pin to send register to output
 
 
 try:
