@@ -51,14 +51,18 @@ try:
 
         # Speed changes
         if s3_state:
-            bug.timestep = 0.033  # speed up 3x
+            bug.timestep = 0.033    # speed up 3x
+            print("3x Speed")
         else:
-            bug.timestep = 0.1    # normal speed
+            bug.timestep = 0.1      # normal speed
+            print("1x Speed")
 
         # If bug is active, update its position and display
         if bug_active:
             bug._update_position()
             bug._Bug__shifter.shiftByte(1 << bug.x)
+
+        time.sleep(0.1)             # delay to make light movements more distinguishable
 
 
 except KeyboardInterrupt:
