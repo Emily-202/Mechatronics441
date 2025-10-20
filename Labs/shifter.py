@@ -22,7 +22,7 @@ class Shifter:
         GPIO.output(p, 0)
 
     # Shift out a byte to the shift register
-    def shiftByte(b):
+    def shiftByte(self, b):
         for i in range(8):
             GPIO.output(self.serial, b & (1<<i))
             self.__ping(self.clock)        # ping the clock pin to shift register data
@@ -30,9 +30,8 @@ class Shifter:
 
 
 try:
-    s = Shifter(2, 3, 4)   # serial=2, clock=3, latch=4
-    code = 0b01100110
-    s.shiftByte(code)   # test pattern
+    s = Shifter(2, 3, 4)        # serial=2, clock=3, latch=4
+    s.shiftByte(0b01100110)     # test pattern
     while True:
         pass
 except KeyboardInterrupt:
