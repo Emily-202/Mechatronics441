@@ -18,7 +18,7 @@ class Shifter:
     # Ping/Toggle pin high then low
     def ping(self, p):
         GPIO.output(p, 1)          # ping the latch pin to send register to output
-        time.sleep(0)
+        time.sleep(0.00001)        # add short delay (hopefully this works?)
         GPIO.output(p, 0)
 
     # Shift out a byte to the shift register
