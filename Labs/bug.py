@@ -53,7 +53,6 @@ try:
         # Speed changes
         if s3_state:
             bug.timestep = 0.033    # speed up 3x
-            print("3x Speed")
         else:
             bug.timestep = 0.1      # normal speed
 
