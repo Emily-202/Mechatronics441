@@ -25,7 +25,7 @@ def generateHTML():
         f"<tr><td>{led}</td><td>{brightness[led]}%</td></tr>"
         for led in brightness
     ])
-    html = """
+    html = f"""
         <html>
         <head><title>LED Brightness Control</title></head>
         <body style="font-family: Arial; margin: 30px;">
