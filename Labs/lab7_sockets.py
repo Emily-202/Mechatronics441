@@ -55,14 +55,14 @@ def generateHTML():
 
 # Web Server Handler Class
 class LEDRequestHandler(BaseHTTPRequestHandler):
-    def doGET(self):
+    def do_GET(self):
         # initial page load
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
         self.wfile.write(generateHTML())
 
-    def doPOST(self):
+    def do_POST(self):
         # Handle POST data from form submission
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
