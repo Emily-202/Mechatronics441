@@ -109,9 +109,13 @@ def generateTwoHTML():
         <body style="font-family: Arial; margin: 30px;">
             <form action="/" method="POST">
                 <p>
-                    <input type="range" name="brightness1" min="0" max="100" value="50"> <label>({brightness['LED1']})</label>
-                    <input type="range" name="brightness2" min="0" max="100" value="50"> <label>({brightness['LED2']})</label>
-                    <input type="range" name="brightness3" min="0" max="100" value="50"> <label>({brightness['LED3']})</label>
+                    <input type="range" name="brightness1" min="0" max="100" value="50"> <label>{brightness['LED1']}</label>
+                </p>
+                <p>
+                    <input type="range" name="brightness2" min="0" max="100" value="50"> <label>{brightness['LED2']}</label>
+                </p>
+                <p>
+                    <input type="range" name="brightness3" min="0" max="100" value="50"> <label>{brightness['LED3']}</label>
                 </p>
             </form>
         </body>
