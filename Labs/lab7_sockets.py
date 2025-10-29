@@ -29,24 +29,17 @@ def generateHTML():
         <html>
         <head><title>LED Brightness Control</title></head>
         <body style="font-family: Arial; margin: 30px;">
-            <h2>Control 3 LEDs</h2>
             <form action="/" method="POST">
-                <p><b>Select LED:</b><br>
-                    <input type="radio" name="led" value="LED1" checked> LED 1<br>
-                    <input type="radio" name="led" value="LED2"> LED 2<br>
-                    <input type="radio" name="led" value="LED3"> LED 3
-                </p>
-                <p><b>Brightness (0–100):</b><br>
+                <p><b>Brightness level:</b><br>
                     <input type="range" name="brightness" min="0" max="100" value="50">
+                </p>
+                <p><b>Select LED:</b><br>
+                    <input type="radio" name="led" value="LED1" checked> LED 1 ({brightness['LED1']}%)<br>
+                    <input type="radio" name="led" value="LED2"> LED 2 ({brightness['LED2']}%)<br>
+                    <input type="radio" name="led" value="LED3"> LED 3 ({brightness['LED3']}%)<br>
                 </p>
                 <input type="submit" value="Change Brightness">
             </form>
-
-            <h3>Current Brightness Levels:</h3>
-            <table border="1" cellpadding="5">
-                <tr><th>LED</th><th>Brightness</th></tr>
-                {table_rows}
-            </table>
         </body>
         </html>
         """
