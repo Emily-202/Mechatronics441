@@ -77,24 +77,22 @@ class LEDRequestHandlerOne(BaseHTTPRequestHandler):
         self.wfile.write(generateOneHTML())
 
     def do_POST(self):
-        # Handle POST data from form submission
-        content_length = int(self.headers['Content-Length'])
+        # Handle async slider POST updates
+        content_length = int(self.headers.get('Content-Length', 0))
         post_data = self.rfile.read(content_length)
         params = urllib.parse.parse_qs(post_data.decode('utf-8'))
 
-        # Extract LED name and brightness value
-        selected_led = params.get('led', ['LED1'])[0]
+        selected_led = params.get('led', [''])[0]
         new_brightness = int(params.get('brightness', [0])[0])
 
-        # Update PWM duty cycle and record brightness
-        brightness[selected_led] = new_brightness
-        pwms[selected_led].ChangeDutyCycle(new_brightness)
+        if selected_led in pwms:
+            brightness[selected_led] = new_brightness
+            pwms[selected_led].ChangeDutyCycle(new_brightness)
 
-        # Send updated page back to client
+        # Respond quickly (no full reload)
         self.send_response(200)
-        self.send_header('Content-type', 'text/html')
         self.end_headers()
-        self.wfile.write(generateOneHTML())
+        self.wfile.write(b"OK")
     
     def runServer():
         try:
