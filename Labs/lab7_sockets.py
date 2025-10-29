@@ -109,18 +109,21 @@ def generateTwoHTML():
         <head><title>LED Brightness Control</title></head>
         <body style="font-family: Arial; margin: 30px;">
             <div class="slider-container">
-                <label>LED 1 Brightness: <span id="val1">{brightness['LED1']}</span>%</label><br>
+                <label>LED1</label><br>
                 <input type="range" min="0" max="100" value="{brightness['LED1']}" id="slider1" oninput="updateLED('LED1', this.value)">
+                <span id="val1">{brightness['LED1']}</span>
             </div>
 
             <div class="slider-container">
-                <label>LED 2 Brightness: <span id="val2">{brightness['LED2']}</span>%</label><br>
+                <label>LED2</label><br>
                 <input type="range" min="0" max="100" value="{brightness['LED2']}" id="slider2" oninput="updateLED('LED2', this.value)">
+                <span id="val2">{brightness['LED2']}</span>
             </div>
 
             <div class="slider-container">
-                <label>LED 3 Brightness: <span id="val3">{brightness['LED3']}</span>%</label><br>
+                <label>LED3</label><br>
                 <input type="range" min="0" max="100" value="{brightness['LED3']}" id="slider3" oninput="updateLED('LED3', this.value)">
+                <span id="val3">{brightness['LED3']}</span>
             </div>
 
             <script>
