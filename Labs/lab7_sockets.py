@@ -34,9 +34,9 @@ def generateHTML():
                     <input type="range" name="brightness" min="0" max="100" value="50">
                 </p>
                 <p><b>Select LED:</b><br>
-                    <input type="radio" name="led" value="LED1" checked> LED 1 ({brightness['LED1']}%)</label><br>
-                    <input type="radio" name="led" value="LED2"> LED 2 ({brightness['LED2']}%)</label><br>
-                    <input type="radio" name="led" value="LED3"> LED 3 ({brightness['LED3']}%)</label><br>
+                    <label><input type="radio" name="led" value="LED1" checked> LED 1 ({brightness['LED1']}%)</label><br>
+                    <label><input type="radio" name="led" value="LED2"> LED 2 ({brightness['LED2']}%)</label><br>
+                    <label><input type="radio" name="led" value="LED3"> LED 3 ({brightness['LED3']}%)</label><br>
                 </p>
                 <input type="submit" value="Change Brightness">
             </form>
